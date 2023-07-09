@@ -1,3 +1,6 @@
+using BulkyBookWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BulkyBookWeb
 {
     public class Program
@@ -8,6 +11,9 @@ namespace BulkyBookWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")
+                ));
 
             var app = builder.Build();
 
@@ -31,6 +37,6 @@ namespace BulkyBookWeb
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
-        }
+        } 
     }
 }
